@@ -8,7 +8,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>בדיקת זכאות</title>
+<title>הזמנת מסלקה פנסיונית</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap"
       rel="stylesheet">
@@ -138,6 +138,7 @@ footer {
     padding: 25px;
     margin-top: 60px;
 }
+
 .pension-info {
     background: white;
     border-radius: 16px;
@@ -180,6 +181,7 @@ footer {
     padding: 0 25px;
     border-top: 1px solid transparent;
     opacity: 0;
+
     transition:
         max-height 0.6s ease,
         opacity 0.4s ease,
@@ -199,6 +201,11 @@ footer {
     line-height: 1.8;
     margin: 15px 0 0;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width: 600px) {
 
@@ -221,118 +228,188 @@ footer {
     .form-group.full {
         grid-column: auto;
     }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
-    <a href="index.html">← חזרה לעמוד הראשי</a>
+    <a href="index.html">
+        ← חזרה לעמוד הראשי
+    </a>
 
 </header>
 
 
+
 <main class="container">
 
-    <h1> הזמנת מסלקה פנסיונית</h1>
+
+    <h1>
+        הזמנת מסלקה פנסיונית
+    </h1>
+
 
     <p class="intro">
         מלאו את הפרטים הבאים ונציג מטעמנו יחזור אליכם
     </p>
-<div class="pension-info">
 
-    <button type="button" class="pension-info-title" onclick="togglePensionInfo()">
-        <span>מהו דוח מסלקה פנסיונית?</span>
-        <span id="pensionPlus">+</span>
-    </button>
 
-    <div id="pensionInfoContent" class="pension-info-content">
 
-        <p>
-            דוח מסלקה פנסיונית מרכז במקום אחד את המידע
-            על החסכונות והמוצרים הפנסיוניים הרשומים על שמך
-            בגופים הפיננסיים השונים.
-        </p>
+    <!-- =========================
+         מידע על המסלקה
+    ========================= -->
 
-        <p>
-            באמצעות הדוח ניתן לקבל תמונה מרוכזת של
-            קרנות הפנסיה, קופות הגמל, קרנות ההשתלמות,
-            ביטוחי המנהלים ומוצרים פנסיוניים נוספים.
-        </p>
+    <div class="pension-info">
 
-        <p>
-            הדוח יכול לסייע לך להבין היכן נמצאים החסכונות
-            שלך, מהן היתרות הקיימות ומהם דמי הניהול
-            המשולמים בגופים השונים.
-        </p>
+        <button
+            type="button"
+            class="pension-info-title"
+            onclick="togglePensionInfo()"
+        >
+
+            <span>
+                מהו דוח מסלקה פנסיונית?
+            </span>
+
+            <span id="pensionPlus">
+                +
+            </span>
+
+        </button>
+
+
+        <div
+            id="pensionInfoContent"
+            class="pension-info-content"
+        >
+
+            <p>
+                דוח מסלקה פנסיונית מרכז במקום אחד את המידע
+                על החסכונות והמוצרים הפנסיוניים הרשומים על שמך
+                בגופים הפיננסיים השונים.
+            </p>
+
+            <p>
+                באמצעות הדוח ניתן לקבל תמונה מרוכזת של
+                קרנות הפנסיה, קופות הגמל, קרנות ההשתלמות,
+                ביטוחי המנהלים ומוצרים פנסיוניים נוספים.
+            </p>
+
+            <p>
+                הדוח יכול לסייע לך להבין היכן נמצאים החסכונות
+                שלך, מהן היתרות הקיימות ומהם דמי הניהול
+                המשולמים בגופים השונים.
+            </p>
+
+        </div>
 
     </div>
 
-</div>
+
+
+    <!-- =========================
+         FORM
+    ========================= -->
 
     <div class="form-box">
 
-        <form action="YOUR_FORM_ENDPOINT" method="POST">
+        <form
+            action="https://formspree.io/f/xkjowavk"
+            method="POST"
+        >
+
+            <!-- נושא המייל -->
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="פנייה חדשה – הזמנת מסלקה פנסיונית"
+            >
+
 
             <div class="form-grid">
+
+
+                <!-- שם פרטי -->
 
                 <div class="form-group">
 
                     <label for="firstName">
-                        שם פרטי <span class="required">*</span>
+                        שם פרטי
+                        <span class="required">*</span>
                     </label>
 
                     <input
                         type="text"
                         id="firstName"
-                        name="firstName"
+                        name="first_name"
+                        autocomplete="given-name"
                         required
                     >
 
                 </div>
 
 
+
+                <!-- שם משפחה -->
+
                 <div class="form-group">
 
                     <label for="lastName">
-                        שם משפחה <span class="required">*</span>
+                        שם משפחה
+                        <span class="required">*</span>
                     </label>
 
                     <input
                         type="text"
                         id="lastName"
-                        name="lastName"
+                        name="last_name"
+                        autocomplete="family-name"
                         required
                     >
 
                 </div>
 
 
+
+                <!-- תעודת זהות -->
+
                 <div class="form-group">
 
                     <label for="idNumber">
-                        מספר תעודת זהות <span class="required">*</span>
+                        מספר תעודת זהות
+                        <span class="required">*</span>
                     </label>
 
                     <input
                         type="text"
                         id="idNumber"
-                        name="idNumber"
+                        name="id_number"
                         inputmode="numeric"
                         maxlength="9"
+                        autocomplete="off"
                         required
                     >
 
                 </div>
 
-     <div class="form-group">
+
+
+                <!-- טלפון -->
+
+                <div class="form-group">
 
                     <label for="phone">
-                        מספר טלפון נייד <span class="required">*</span>
+                        מספר טלפון נייד
+                        <span class="required">*</span>
                     </label>
 
                     <input
@@ -340,14 +417,21 @@ footer {
                         id="phone"
                         name="phone"
                         inputmode="tel"
+                        autocomplete="tel"
                         required
                     >
 
                 </div>
+
+
+
+                <!-- עיר -->
+
                 <div class="form-group">
 
                     <label for="city">
-                        עיר <span class="required">*</span>
+                        עיר
+                        <span class="required">*</span>
                     </label>
 
                     <input
@@ -360,10 +444,14 @@ footer {
                 </div>
 
 
+
+                <!-- רחוב -->
+
                 <div class="form-group">
 
                     <label for="street">
-                        רחוב <span class="required">*</span>
+                        רחוב
+                        <span class="required">*</span>
                     </label>
 
                     <input
@@ -376,78 +464,116 @@ footer {
                 </div>
 
 
+
+                <!-- מספר בית -->
+
                 <div class="form-group">
 
                     <label for="houseNumber">
-                        מספר בית <span class="required">*</span>
+                        מספר בית
+                        <span class="required">*</span>
                     </label>
 
                     <input
                         type="text"
                         id="houseNumber"
-                        name="houseNumber"
+                        name="house_number"
                         required
                     >
 
                 </div>
 
 
+
+                <!-- מייל -->
+
                 <div class="form-group">
 
                     <label for="email">
+
                         כתובת מייל
-                        <span class="optional">(אופציונלי)</span>
+
+                        <span class="optional">
+                            (אופציונלי)
+                        </span>
+
                     </label>
 
                     <input
                         type="email"
                         id="email"
                         name="email"
+                        autocomplete="email"
                     >
 
                 </div>
 
+
             </div>
 
 
-            <button type="submit" class="submit-button">
+
+            <!-- כפתור שליחה -->
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
                 שליחת פרטים
             </button>
+
 
         </form>
 
     </div>
 
+
 </main>
+
 
 
 <footer>
 
 </footer>
+
+
+
 <script>
+
+
+/* =========================
+   פתיחת מידע על המסלקה
+========================= */
 
 function togglePensionInfo() {
 
-    const content = document.getElementById("pensionInfoContent");
-    const plus = document.getElementById("pensionPlus");
+    const content =
+        document.getElementById("pensionInfoContent");
+
+    const plus =
+        document.getElementById("pensionPlus");
+
 
     if (content.classList.contains("open")) {
 
         content.classList.remove("open");
+
         plus.textContent = "+";
 
     } else {
 
         content.classList.add("open");
+
         plus.textContent = "−";
 
     }
 
 }
 
-</script>
 
 </script>
+
+
 </body>
 
 </html>
