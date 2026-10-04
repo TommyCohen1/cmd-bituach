@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html lang="he" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>בדיקת זכאות</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Heebo, Arial, sans-serif;
+    color: #213c50;
+    background: #f6fcff;
+}
+
+header {
+    background: white;
+    padding: 18px 8%;
+    border-bottom: 2px solid #1687b8;
+}
+
+header a {
+    color: #17364e;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.container {
+    max-width: 850px;
+    margin: 55px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    color: #17364e;
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.intro {
+    font-size: 18px;
+    line-height: 1.9;
+    margin-bottom: 30px;
+}
+
+.form-box {
+    background: white;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 10px 30px #143c5812;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: #17364e;
+}
+
+input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ccdce4;
+    border-radius: 9px;
+    font-family: Heebo, Arial, sans-serif;
+    font-size: 17px;
+    color: #213c50;
+    background: #fff;
+    outline: none;
+}
+
+input:focus {
+    border-color: #1687b8;
+    box-shadow: 0 0 0 3px #1687b81a;
+}
+
+.required {
+    color: #d9534f;
+}
+
+.optional {
+    color: #777;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.submit-button {
+    width: 100%;
+    background: #1687b8;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 9px;
+    text-decoration: none;
+    font-family: Heebo, Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: #0e6e9a;
+}
+
+footer {
+    background: #17364e;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+}
+.pension-info {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px #143c5812;
+    overflow: hidden;
+}
+
+.pension-info-title {
+    width: 100%;
+    border: none;
+    background: white;
+    color: #17364e;
+    padding: 20px 25px;
+    font-family: Heebo, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: right;
+}
+
+.pension-info-title:hover {
+    background: #f8fcfe;
+}
+
+#pensionPlus {
+    font-size: 30px;
+    font-weight: 400;
+    color: #1687b8;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.pension-info-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 25px;
+    border-top: 1px solid transparent;
+    opacity: 0;
+    transition:
+        max-height 0.6s ease,
+        opacity 0.4s ease,
+        padding 0.6s ease,
+        border-color 0.6s ease;
+}
+
+.pension-info-content.open {
+    max-height: 500px;
+    padding: 0 25px 20px;
+    opacity: 1;
+    border-top-color: #edf3f6;
+}
+
+.pension-info-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 15px 0 0;
+}
+
+@media(max-width: 600px) {
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .container {
+        margin: 30px auto;
+    }
+
+    .form-box {
+        padding: 25px 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <a href="index.html">← חזרה לעמוד הראשי</a>
+
+</header>
+
+
+<main class="container">
+
+    <h1> הזמנת מסלקה פנסיונית</h1>
+
+    <p class="intro">
+        מלאו את הפרטים הבאים ונציג מטעמנו יחזור אליכם
+    </p>
+<div class="pension-info">
+
+    <button type="button" class="pension-info-title" onclick="togglePensionInfo()">
+        <span>מהו דוח מסלקה פנסיונית?</span>
+        <span id="pensionPlus">+</span>
+    </button>
+
+    <div id="pensionInfoContent" class="pension-info-content">
+
+        <p>
+            דוח מסלקה פנסיונית מרכז במקום אחד את המידע
+            על החסכונות והמוצרים הפנסיוניים הרשומים על שמך
+            בגופים הפיננסיים השונים.
+        </p>
+
+        <p>
+            באמצעות הדוח ניתן לקבל תמונה מרוכזת של
+            קרנות הפנסיה, קופות הגמל, קרנות ההשתלמות,
+            ביטוחי המנהלים ומוצרים פנסיוניים נוספים.
+        </p>
+
+        <p>
+            הדוח יכול לסייע לך להבין היכן נמצאים החסכונות
+            שלך, מהן היתרות הקיימות ומהם דמי הניהול
+            המשולמים בגופים השונים.
+        </p>
+
+    </div>
+
+</div>
+
+    <div class="form-box">
+
+        <form action="YOUR_FORM_ENDPOINT" method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="firstName">
+                        שם פרטי <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lastName">
+                        שם משפחה <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="idNumber">
+                        מספר תעודת זהות <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="idNumber"
+                        name="idNumber"
+                        inputmode="numeric"
+                        maxlength="9"
+                        required
+                    >
+
+                </div>
+
+     <div class="form-group">
+
+                    <label for="phone">
+                        מספר טלפון נייד <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        inputmode="tel"
+                        required
+                    >
+
+                </div>
+                <div class="form-group">
+
+                    <label for="city">
+                        עיר <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="street">
+                        רחוב <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="street"
+                        name="street"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="houseNumber">
+                        מספר בית <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="houseNumber"
+                        name="houseNumber"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        כתובת מייל
+                        <span class="optional">(אופציונלי)</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="submit-button">
+                שליחת פרטים
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+</footer>
+<script>
+
+function togglePensionInfo() {
+
+    const content = document.getElementById("pensionInfoContent");
+    const plus = document.getElementById("pensionPlus");
+
+    if (content.classList.contains("open")) {
+
+        content.classList.remove("open");
+        plus.textContent = "+";
+
+    } else {
+
+        content.classList.add("open");
+        plus.textContent = "−";
+
+    }
+
+}
+
+</script>
+
+</script>
+</body>
+
+</html>

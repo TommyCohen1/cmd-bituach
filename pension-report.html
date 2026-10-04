@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>הזמנת דוח פנסיוני</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Heebo, Arial, sans-serif;
+    color: #213c50;
+    background: #f6fcff;
+}
+
+header {
+    background: white;
+    padding: 18px 8%;
+    border-bottom: 2px solid #1687b8;
+}
+
+header a {
+    color: #17364e;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.container {
+    max-width: 850px;
+    margin: 55px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    color: #17364e;
+    font-size: 38px;
+}
+
+h2 {
+    color: #17364e;
+    font-size: 24px;
+}
+
+p, li {
+    font-size: 18px;
+    line-height: 1.9;
+}
+
+.info-box {
+    background: white;
+    border-radius: 16px;
+    padding: 10px;
+    margin: 25px 0;
+    box-shadow: 0 10px 30px #143c5812;
+}
+
+.price-box {
+    background: #eaf7fb;
+    border-radius: 16px;
+    padding: 35px;
+    text-align: center;
+    margin-top: 35px;
+}
+
+.sale-badge {
+    display: inline-block;
+    background: #e74c3c;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 30px;
+    margin-bottom: 15px;
+}
+
+.old-price {
+    font-size: 25px;
+    color: #8a8a8a;
+    text-decoration: line-through;
+    margin-top: 10px;
+}
+
+.price {
+    font-size: 52px;
+    font-weight: 800;
+    color: #1687b8;
+    margin-top: -5px;
+}
+
+/* כפתור פתיחת הטופס */
+.order-button {
+    display: inline-block;
+    background: #1687b8;
+    color: white;
+    padding: 14px 35px;
+    border-radius: 9px;
+    border: none;
+    text-decoration: none;
+    font-family: Heebo, Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.order-button:hover {
+    background: #0e6e9a;
+}
+
+/* טופס הזמנה */
+.order-form {
+    max-width: 850px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 10px 30px #143c5812;
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+
+    transition:
+        max-height 0.7s ease,
+        opacity 0.5s ease,
+        transform 0.6s ease,
+        margin 0.6s ease,
+        padding 0.6s ease;
+}
+
+.order-form.open {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 25px;
+}
+
+.order-form h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.form-intro {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #17364e;
+    margin-bottom: 7px;
+}
+
+.form-group label span {
+    color: #d9534f;
+}
+
+.form-group label small {
+    color: #777;
+    font-weight: 400;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ccdce4;
+    border-radius: 9px;
+    font-family: Heebo, Arial, sans-serif;
+    font-size: 17px;
+    color: #213c50;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #1687b8;
+    box-shadow: 0 0 0 3px #1687b81a;
+}
+
+.send-button {
+    width: 100%;
+    background: #1687b8;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 9px;
+    font-family: Heebo, Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.send-button:hover {
+    background: #0e6e9a;
+}
+
+.form-note {
+    font-size: 13px;
+    color: #777;
+    margin-top: 15px;
+    text-align: center;
+}
+
+footer {
+    background: #17364e;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+@media(max-width: 600px) {
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .container {
+        margin: 30px auto;
+    }
+
+    .price-box {
+        padding: 25px 20px;
+    }
+
+    .order-form {
+        padding: 25px 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .price {
+        font-size: 45px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html">← חזרה לעמוד הראשי</a>
+</header>
+
+<main class="container">
+
+<h1>הזמנת דוח מסלקה פנסיונית</h1>
+
+<p>
+כל המידע על החסכונות הפנסיוניים שלך
+במקום אחד.
+</p>
+
+<div class="info-box">
+    <h2>מהי המסלקה הפנסיונית?</h2>
+
+    <p>
+    המסלקה הפנסיונית היא מערכת המרכזת
+    מידע על החסכונות הפנסיוניים שלך
+    מגופים פיננסיים שונים בישראל.
+    </p>
+
+    <p>
+    באמצעותה ניתן לקבל מידע מרוכז
+    על מוצרים פנסיוניים הרשומים על שמך.
+    </p>
+</div>
+
+<div class="info-box">
+    <h2>מה כולל הדוח?</h2>
+
+    <ul>
+        <li>קרנות פנסיה</li>
+        <li>קופות גמל</li>
+        <li>קרנות השתלמות</li>
+        <li>ביטוחי מנהלים</li>
+        <li>יתרות כספים ודמי ניהול</li>
+    </ul>
+</div>
+
+<div class="price-box">
+
+    <div class="sale-badge">מבצע לזמן מוגבל</div>
+
+    <h2>עלות בקשת מידע חד-פעמית</h2>
+
+    <div class="old-price">14 ₪</div>
+
+    <div class="price">חינם!</div>
+
+    <p>
+        במסגרת המבצע, הזמנת הדוח ללא עלות.
+    </p>
+
+    <button type="button"
+            class="order-button"
+            onclick="openOrderForm()">
+        מעבר להזמנת דוח מסלקה
+    </button>
+
+    <p style="font-size:13px">
+        התשלום וההזמנה מתבצעים
+        באתר המסלקה הפנסיונית.
+    </p>
+
+</div>
+
+
+<!-- טופס הזמנת הדוח -->
+
+<div id="orderForm" class="order-form">
+
+    <h2>הזמנת דוח מסלקה פנסיונית</h2>
+
+    <p class="form-intro">
+        מלאו את הפרטים הבאים ונציג מטעמנו
+        יחזור אליכם להמשך הטיפול בהזמנה.
+    </p>
+
+    <form action="YOUR_FORM_ENDPOINT" method="POST" onsubmit="return validateForm()">
+
+        <div class="form-grid">
+
+            <!-- שם פרטי -->
+            <div class="form-group">
+                <label for="firstName">
+                    שם פרטי <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    autocomplete="given-name"
+                    minlength="2"
+                    maxlength="20"
+                    pattern="[א-תa-zA-ZÀ-ÿ\s\-]+"
+                    title="יש להזין שם פרטי בלבד, ללא מספרים או תווים מיוחדים"
+                    required>
+            </div>
+
+
+            <!-- שם משפחה -->
+            <div class="form-group">
+                <label for="lastName">
+                    שם משפחה <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    autocomplete="family-name"
+                    minlength="2"
+                    maxlength="30"
+                    pattern="[א-תa-zA-ZÀ-ÿ\s\-]+"
+                    title="יש להזין שם משפחה בלבד, ללא מספרים או תווים מיוחדים"
+                    required>
+            </div>
+
+
+            <!-- תעודת זהות -->
+            <div class="form-group">
+                <label for="idNumber">
+                    מספר תעודת זהות <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="idNumber"
+                    name="idNumber"
+                    inputmode="numeric"
+                    minlength="9"
+                    maxlength="9"
+                    pattern="[0-9]{9}"
+                    title="יש להזין מספר תעודת זהות בעל 9 ספרות"
+                    required>
+            </div>
+
+
+            <!-- טלפון -->
+            <div class="form-group">
+                <label for="phone">
+                    מספר טלפון נייד <span>*</span>
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    inputmode="numeric"
+                    maxlength="10"
+                    pattern="05[0-9]{8}"
+                    title="יש להזין מספר טלפון נייד ישראלי תקין, לדוגמה 0501234567"
+                    autocomplete="tel"
+                    required>
+            </div>
+
+
+            <!-- עיר -->
+            <div class="form-group">
+                <label for="city">
+                    עיר <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    minlength="2"
+                    maxlength="30"
+                    pattern="[א-תa-zA-ZÀ-ÿ\s\-]+"
+                    title="יש להזין שם עיר בלבד"
+                    autocomplete="address-level2"
+                    required>
+            </div>
+
+
+            <!-- רחוב -->
+            <div class="form-group">
+                <label for="street">
+                    רחוב <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="street"
+                    name="street"
+                    minlength="2"
+                    maxlength="40"
+                    pattern="[א-תa-zA-ZÀ-ÿ\s\-]+"
+                    title="יש להזין שם רחוב בלבד"
+                    autocomplete="street-address"
+                    required>
+            </div>
+
+
+            <!-- מספר בית -->
+            <div class="form-group">
+                <label for="houseNumber">
+                    מספר בית <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="houseNumber"
+                    name="houseNumber"
+                    inputmode="numeric"
+                    maxlength="4"
+                    pattern="[0-9]{1,4}"
+                    title="יש להזין מספר בית בלבד, עד 4 ספרות"
+                    required>
+            </div>
+
+
+            <!-- מייל -->
+            <div class="form-group">
+                <label for="email">
+                    כתובת מייל
+                    <small>(אופציונלי)</small>
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    maxlength="100"
+                    autocomplete="email">
+            </div>
+
+        </div>
+
+
+        <button type="submit" class="send-button">
+            שליחת פרטים
+        </button>
+
+        <p class="form-note">
+            השדות המסומנים בכוכבית (*) הם שדות חובה.
+        </p>
+
+    </form>
+
+</div>
+
+
+<p style="font-size:14px">
+אתר זה הוא אתר פרטי ואינו האתר הרשמי
+של המסלקה הפנסיונית.
+</p>
+
+</main>
+
+<footer>
+</footer>
+
+
+<<script>
+
+function openOrderForm() {
+
+    const form = document.getElementById("orderForm");
+
+    form.classList.toggle("open");
+
+    if (form.classList.contains("open")) {
+
+        setTimeout(function() {
+
+            form.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }, 150);
+
+    }
+}
+
+
+/* הגבלת הקלדה בשדות */
+
+document.getElementById("firstName").addEventListener("input", function () {
+    this.value = this.value.replace(/[^א-תa-zA-ZÀ-ÿ\s\-]/g, "");
+});
+
+document.getElementById("lastName").addEventListener("input", function () {
+    this.value = this.value.replace(/[^א-תa-zA-ZÀ-ÿ\s\-]/g, "");
+});
+
+document.getElementById("city").addEventListener("input", function () {
+    this.value = this.value.replace(/[^א-תa-zA-ZÀ-ÿ\s\-]/g, "");
+});
+
+document.getElementById("street").addEventListener("input", function () {
+    this.value = this.value.replace(/[^א-תa-zA-ZÀ-ÿ\s\-]/g, "");
+});
+
+document.getElementById("idNumber").addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "").slice(0, 9);
+});
+
+document.getElementById("phone").addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "").slice(0, 10);
+});
+
+document.getElementById("houseNumber").addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "").slice(0, 4);
+});
+
+
+/* בדיקה נוספת לפני שליחה */
+
+function validateForm() {
+
+    const id = document.getElementById("idNumber").value;
+    const phone = document.getElementById("phone").value;
+
+    if (id.length !== 9) {
+        alert("יש להזין מספר תעודת זהות בעל 9 ספרות.");
+        return false;
+    }
+
+    if (!/^05\d{8}$/.test(phone)) {
+        alert("יש להזין מספר טלפון נייד ישראלי תקין.");
+        return false;
+    }
+
+    return true;
+}
+
+</script>
+
+</body>
+</html>
