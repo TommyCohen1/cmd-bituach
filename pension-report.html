@@ -12,6 +12,27 @@
       rel="stylesheet">
 
 <style>
+    ```css
+.success-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.success-message h2 {
+    color: #17364e;
+    margin-bottom: 10px;
+}
+
+.success-message p {
+    font-size: 18px;
+    color: #213c50;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -346,7 +367,17 @@ footer {
         יחזור אליכם להמשך הטיפול בהזמנה.
     </p>
 
-    <form action="YOUR_FORM_ENDPOINT" method="POST" onsubmit="return validateForm()">
+    <form
+        
+    id="pensionForm"
+    action="https://formspree.io/f/xkjowavk"
+    method="POST"
+>
+        <input
+    type="hidden"
+    name="_subject"
+    value="פנייה חדשה – הזמנת דוח מסלקה פנסיונית"
+>
 
         <div class="form-grid">
 
@@ -361,7 +392,7 @@ footer {
                     id="firstName"
                     name="firstName"
                     autocomplete="given-name"
-                    minlength="2"
+                    minlength="1"
                     maxlength="20"
                     pattern="[א-תa-zA-ZÀ-ÿ\s\-]+"
                     title="יש להזין שם פרטי בלבד, ללא מספרים או תווים מיוחדים"
@@ -524,7 +555,8 @@ footer {
 </footer>
 
 
-<<script>
+```html
+<script>
 
 function openOrderForm() {
 
@@ -578,27 +610,97 @@ document.getElementById("houseNumber").addEventListener("input", function () {
 });
 
 
-/* בדיקה נוספת לפני שליחה */
+/* שליחת הטופס ל-Formspree בלי לעזוב את האתר */
 
-function validateForm() {
+const pensionForm = document.getElementById("pensionForm");
+
+pensionForm.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    /* בדיקת תקינות */
 
     const id = document.getElementById("idNumber").value;
     const phone = document.getElementById("phone").value;
 
     if (id.length !== 9) {
         alert("יש להזין מספר תעודת זהות בעל 9 ספרות.");
-        return false;
+        return;
     }
 
     if (!/^05\d{8}$/.test(phone)) {
         alert("יש להזין מספר טלפון נייד ישראלי תקין.");
-        return false;
+        return;
     }
 
-    return true;
-}
+
+    /* כפתור השליחה */
+
+    const submitButton =
+        pensionForm.querySelector(".send-button");
+
+    submitButton.disabled = true;
+    submitButton.textContent = "שולח...";
+
+
+    try {
+
+        const response = await fetch(
+            pensionForm.action,
+            {
+                method: "POST",
+                body: new FormData(pensionForm),
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+
+        if (response.ok) {
+
+            /* הצלחה */
+
+            pensionForm.innerHTML = `
+                <div class="success-message">
+
+                    <div class="success-icon">
+                        ✅
+                    </div>
+
+                    <h2>
+                        הפרטים התקבלו בהצלחה!
+                    </h2>
+
+                    <p>
+                        נחזור אליך בהקדם.
+                    </p>
+
+                </div>
+            `;
+
+        } else {
+
+            throw new Error("Formspree error");
+
+        }
+
+    } catch (error) {
+
+        submitButton.disabled = false;
+        submitButton.textContent = "שליחת פרטים";
+
+        alert(
+            "אירעה שגיאה בשליחת הפרטים. אנא נסה שוב."
+        );
+
+    }
+
+});
 
 </script>
+```
+
 
 </body>
 </html>
